@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
         rotY = Mathf.Clamp(rotY, -60f, 60f);
 
         // Creating the movement vector
-        Vector3 movement = new Vector3(moveLR, 0, moveFB);
+        Vector3 movement = new Vector3(moveLR, 0, moveFB).normalized * movementSpeed;
 
         // Rotating the player camera
         transform.Rotate(0, rotX, 0);
