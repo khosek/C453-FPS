@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,16 +17,29 @@ public class PlayerController : MonoBehaviour
     private CharacterController cc;
     private Camera _camera;
 
+    private Weapon _gun;
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         cc = gameObject.GetComponent<CharacterController>();
         _camera = gameObject.transform.GetChild(0).transform.gameObject.GetComponent<Camera>();
+        _gun = _camera.transform.GetChild(0).gameObject.GetComponent<Weapon>();
     }
 
     private void Update()
     {
         Move();
+
+        // Fires the gun upon the mouse being clicked
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("Mouse clicked");
+            _gun.Shoot();
+        }
+
+        // Reloads the gun if the player is trying to reload
+        
     }
 
     private void Move()
@@ -63,5 +77,5 @@ public class PlayerController : MonoBehaviour
         // Applying movement to the player
         movement = transform.rotation * movement;
         cc.Move(movement * Time.deltaTime);
-    }
+    }    
 }
