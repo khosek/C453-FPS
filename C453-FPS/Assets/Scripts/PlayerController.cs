@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     public float sensitivity;
     public float sprintSpeed;
 
+    [Header("Inventory")]
+    [SerializeField] private int bullets;
+
     private float moveFB;
     private float moveLR;
     private float rotX;
@@ -34,12 +37,17 @@ public class PlayerController : MonoBehaviour
         // Fires the gun upon the mouse being clicked
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Mouse clicked");
-            _gun.Shoot();
+           _gun.Shoot();
         }
 
         // Reloads the gun if the player is trying to reload
-        
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            //Debug.Log("Reloading");
+            // Also updates how many bullets they have left
+            int newBullets = _gun.Reload(bullets);
+            bullets = newBullets;
+        }
     }
 
     private void Move()
