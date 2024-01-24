@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     private Camera _camera;
 
     private Weapon _gun;
+    [SerializeField] private BurgerBomb bomb;
 
     private void Start()
     {
@@ -48,6 +49,16 @@ public class PlayerController : MonoBehaviour
             int newBullets = _gun.Reload(bullets);
             bullets = newBullets;
         }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            bomb.detonate();
+        }
+    }
+
+    public void PickUpAmmo(int amount)
+    {
+        bullets += amount;
     }
 
     private void Move()
