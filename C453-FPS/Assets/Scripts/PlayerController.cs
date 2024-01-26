@@ -54,6 +54,11 @@ public class PlayerController : MonoBehaviour
         {
             bomb.detonate();
         }
+
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            Interact();
+        }
     }
 
     public void PickUpAmmo(int amount)
@@ -96,5 +101,19 @@ public class PlayerController : MonoBehaviour
         // Applying movement to the player
         movement = transform.rotation * movement;
         cc.Move(movement * Time.deltaTime);
-    }    
+    }  
+    
+    private void Interact()
+    {
+        // Checking to see if there is an object in front of the player
+        RaycastHit objectHit;
+        if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out objectHit, 5.0f)) 
+        {
+            // Checking to see if the object is interactable
+            if (objectHit.transform.gameObject.GetComponent<IInteractable>() != null)
+            {
+                objectHit.transform.gameObject.GetComponent<IInteractable>().interact();
+            }
+        }
+    }
 }
