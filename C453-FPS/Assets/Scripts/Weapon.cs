@@ -57,6 +57,10 @@ public abstract class Weapon : MonoBehaviour
         {
             currentBullets += rounds;
             int roundsLeftOver = currentBullets - maxBullets;
+            if (roundsLeftOver < 0)
+            {
+                roundsLeftOver = 0;
+            }
             if (currentBullets > maxBullets)
             {
                 currentBullets = maxBullets;
