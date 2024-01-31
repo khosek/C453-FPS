@@ -33,7 +33,9 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        Move();
+        if (!PauseMenu.instance.isPaused) { 
+            Move();
+        }
 
         // Fires the gun upon the mouse being clicked
         if (Input.GetMouseButtonDown(0))
