@@ -32,6 +32,11 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void OnTriggerEnter(Collider other)
+    {
+        isPatrolling = false;
+    }
+
     public void Damage()
     {
         Destroy(this.gameObject);
