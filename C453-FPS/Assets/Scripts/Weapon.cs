@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
@@ -45,6 +46,12 @@ public abstract class Weapon : MonoBehaviour
                 decal.transform.SetParent(hit.transform);
                 decal.transform.position = worldPosition;
                 decal.transform.rotation = worldRotation;
+
+                // If it's an enemy, damage them
+                if (hit.collider.GameObject().CompareTag("Enemy"))
+                {
+                    hit.collider.GameObject().GetComponent<Enemy>().Damage();
+                }
 
                 currentBullets--;
             }
