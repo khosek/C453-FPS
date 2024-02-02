@@ -10,6 +10,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private bool isPatrolling;
     [SerializeField] private Vector3[] patrolPoints;
     private int currentPatrolPoint = 0;
+    private float shootCooldown = 5.0f;
+    [SerializeField] private Weapon gun;
+    [SerializeField] private ParticleSystem gunParticles;
     
     // Start is called before the first frame update
     void Start()
@@ -23,6 +26,14 @@ public class Enemy : MonoBehaviour
         if (!isPatrolling)
         {
             agent.SetDestination(player.GetComponent<NavMeshAgent>().transform.position);
+
+            shootCooldown -= Time.deltaTime;
+            if(shootCooldown <= 0)
+            {
+                // gun.Shoot();
+                gunParticles.Play();
+                shootCooldown += 5.0f;
+            }
         }
         else if (agent.remainingDistance < 1.0f)
         {
